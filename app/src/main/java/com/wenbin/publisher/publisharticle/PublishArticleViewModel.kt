@@ -4,7 +4,6 @@ import android.content.ContentValues.TAG
 import android.provider.SyncStateContract.Helpers.update
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.happybirthday.data.Information
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore

@@ -5,10 +5,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.happybirthday.data.Information
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.wenbin.publisher.data.Information
 
 class HomePageViewModel : ViewModel() {
 
@@ -20,6 +20,12 @@ class HomePageViewModel : ViewModel() {
     val informations: LiveData<List<Information>>
         get() = _informations
 
+    private val _showPuhlishment = MutableLiveData<List<Information>>()
+
+    val showPuhlishment: LiveData<List<Information>>
+        get() = _showPuhlishment
+
+
 
     /**
      * For catch data
@@ -30,8 +36,8 @@ class HomePageViewModel : ViewModel() {
     var mock = mutableListOf<Information>()
 
     fun getData() {
-//        val newData = citiesRef.orderBy("createdTime", Query.Direction.DESCENDING)
-//        Log.d("TAG", "newData = ${newData.firestore}")
+        Log.d("newway", "inti mock = $mock")
+
         db.collection("articles")
             .orderBy("createdTime", Query.Direction.DESCENDING)
             .get()
@@ -42,9 +48,13 @@ class HomePageViewModel : ViewModel() {
                     category = document.data["category"].toString(),
                     content = document.data["content"].toString(),
                     createdTime = document.data["createdTime"].toString()))
-                    Log.d("newway", "mock = $mock") 
+                    Log.d("newway", "mock = $mock")
                     break
                 }
+                _informations.value = mock
+                Log.d("newway", "finalmock = $mock")
+                Log.d("newway", "_informations.value = ${_informations.value}")
+
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting documents: ", exception)
@@ -82,8 +92,8 @@ class HomePageViewModel : ViewModel() {
                             "TAG",
                             "New Invitation Card: ${dc.document.data}"
                         )
-                            var mock = dc.document.data
-                            Log.d("TAG", "mock = $mock")
+                            var mock123 = dc.document.data
+                            Log.d("TAG", "mock = $mock123")
                             getData()
                         }
                         DocumentChange.Type.MODIFIED -> {
@@ -106,9 +116,9 @@ class HomePageViewModel : ViewModel() {
 //                            email = mock["email"].toString()
 //                    )
 //                    Log.d("TAG", "information = $information")
-                            _informations.value = defaultData
+//                            _informations.value = defaultData
 
-                            Log.d("TAG", "_informations.value = ${_informations.value}")
+//                            Log.d("TAG", "_informations.value = ${_informations.value}")
 
                         }
                         DocumentChange.Type.REMOVED -> Log.d(

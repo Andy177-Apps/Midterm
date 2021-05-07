@@ -28,6 +28,9 @@ class HomePageFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        var adapter = HomePageAdapter()
+        binding.recyclervView.adapter = adapter
+
         //navigate to publisher dialog
         viewModel.navigateToPublisher.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -37,8 +40,9 @@ class HomePageFragment : Fragment() {
         })
 
         viewModel.informations.observe(viewLifecycleOwner, Observer {
-            Log.d("TAG", "infromation in view = ${it}")
+            Log.d("TAG", "infromation in view = $it")
 //            viewModel.getData()
+            adapter.submitList(it)
         })
 
         return binding.root

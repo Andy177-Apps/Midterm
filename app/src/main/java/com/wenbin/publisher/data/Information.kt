@@ -1,4 +1,4 @@
-package com.example.happybirthday.data
+package com.wenbin.publisher.data
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
