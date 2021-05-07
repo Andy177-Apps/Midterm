@@ -22,46 +22,44 @@ class PublishArticleViewModel : ViewModel() {
 
 
 
-
     fun addData() {
         var newTitle = title
         var newCategory = category
         var newContent = content
-        val timestamp = Timestamp(System.currentTimeMillis()).toString()
-
-
-        // new document
-        val data = Information(newTitle, newCategory, newContent,
-            timestamp)
-        db.collection("articles")
-            .add(data)
-            .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
-            }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error adding document", e)
-            }
-
-
-
-
-
-
-        //新增資料到好友名單
-//        val washingtonRef = db.collection("articles").document("data")
-
-        //Post Articles
-//        fun postArticles () {
-//            washingtonRef.
-//            update("title", FieldValue.arrayUnion(newTitle),("category") )
-
-//            washingtonRef.
-//            update("category", FieldValue.arrayUnion(newCategory))
-//            washingtonRef.
-//            update("content", FieldValue.arrayUnion(newContent))
-//            washingtonRef.
-//            update("timestamp", FieldValue.arrayUnion(timestamp))
-//        }
-
+        val articles = FirebaseFirestore.getInstance()
+            .collection("articles")
+        val document = articles.document()
+        val data = hashMapOf(
+            "author" to hashMapOf(
+                "email" to "wayne@school.appworks.tw",
+                "id" to "waynechen323",
+                "name" to "AKA小安老師"
+            ),
+            "title" to newTitle,
+            "content" to newContent,
+            "createdTime" to Calendar.getInstance().timeInMillis,
+            "id" to document.id,
+            "category" to newCategory
+        )
+        document.set(data)
     }
+
+
+//    fun addData() {
+//        var newTitle = title
+//        var newCategory = category
+//        var newContent = content
+//        val timestamp = Timestamp(System.currentTimeMillis()).toString()
+//
+//        val data = Information(newTitle, newCategory, newContent,
+//            timestamp)
+//        db.collection("articles")
+//            .add(data)
+//            .addOnSuccessListener { documentReference ->
+//                Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
+//            }
+//            .addOnFailureListener { e ->
+//                Log.w(TAG, "Error adding document", e)
+//            }
+//    }
 }
