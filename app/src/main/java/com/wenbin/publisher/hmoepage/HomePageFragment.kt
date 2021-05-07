@@ -1,6 +1,7 @@
 package com.wenbin.publisher.hmoepage
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +34,11 @@ class HomePageFragment : Fragment() {
                 findNavController().navigate(NavigationDirections.navigateToPublishArticleDialog())
                 viewModel.onPublisherNavigated()
             }
+        })
+
+        viewModel.informations.observe(viewLifecycleOwner, Observer {
+            Log.d("TAG", "infromation in view = ${it}")
+
         })
 
         return binding.root

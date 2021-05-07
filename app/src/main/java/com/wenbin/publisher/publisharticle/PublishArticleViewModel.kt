@@ -4,6 +4,7 @@ import android.content.ContentValues.TAG
 import android.provider.SyncStateContract.Helpers.update
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.example.happybirthday.data.Information
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -28,17 +29,39 @@ class PublishArticleViewModel : ViewModel() {
         var newContent = content
         val timestamp = Timestamp(System.currentTimeMillis()).toString()
 
+
+        // new document
+        val data = Information(newTitle, newCategory, newContent,
+            timestamp)
+        db.collection("articles")
+            .add(data)
+            .addOnSuccessListener { documentReference ->
+                Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error adding document", e)
+            }
+
+
+
+
+
+
         //新增資料到好友名單
-        val washingtonRef = db.collection("articles").document("data")
+//        val washingtonRef = db.collection("articles").document("data")
 
         //Post Articles
-        washingtonRef.
-        update("title", FieldValue.arrayUnion(newTitle))
-        washingtonRef.
-        update("category", FieldValue.arrayUnion(newCategory))
-        washingtonRef.
-        update("content", FieldValue.arrayUnion(newContent))
-        washingtonRef.
-        update("timestamp", FieldValue.arrayUnion(timestamp))
+//        fun postArticles () {
+//            washingtonRef.
+//            update("title", FieldValue.arrayUnion(newTitle),("category") )
+
+//            washingtonRef.
+//            update("category", FieldValue.arrayUnion(newCategory))
+//            washingtonRef.
+//            update("content", FieldValue.arrayUnion(newContent))
+//            washingtonRef.
+//            update("timestamp", FieldValue.arrayUnion(timestamp))
+//        }
+
     }
 }

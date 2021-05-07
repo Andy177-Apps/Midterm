@@ -14,9 +14,9 @@ class HomePageViewModel : ViewModel() {
     var db = FirebaseFirestore.getInstance()
 
 
-    private val _informations = MutableLiveData<Information>()
+    private val _informations = MutableLiveData<List<Information>>()
 
-    val informations: LiveData<Information>
+    val informations: LiveData<List<Information>>
         get() = _informations
 
 
@@ -55,31 +55,34 @@ class HomePageViewModel : ViewModel() {
 
                 for (dc in snapshots!!.documentChanges) {
                     when (dc.type) {
-                        DocumentChange.Type.ADDED -> Log.d(
+                        DocumentChange.Type.ADDED -> {Log.d(
                             "TAG",
                             "New Invitation Card: ${dc.document.data}"
                         )
+                            var mock = dc.document.data
+                            Log.d("TAG", "mock = $mock")
+                        }
                         DocumentChange.Type.MODIFIED -> {
                             Log.d(
                                 "TAG",
                                 "Changed Data: ${dc.document.data}"
                             )
-                            var mock = dc.document.data
-                            Log.d("TAG", "mock = $mock")
-                            defaultData.run {
-                                add(Information(title = mock["title"].toString(),
-                                    category = mock["category"].toString(),
-                                    content = mock["category"].toString(),
-                                    time = mock["timestamp"].toString()
-                                ))
-                            }
+//                            var mock = dc.document.data
+//                            Log.d("TAG", "mock = $mock")
+//                            defaultData.run {
+//                                add(Information(title = mock["title"].toString(),
+//                                    category = mock["category"].toString(),
+//                                    content = mock["category"].toString(),
+//                                    time = mock["timestamp"].toString()
+//                                ))
+//                            }
 //                    val information = Information(
 //                            name = mock["name"].toString(),
 //                            id = mock["id"].toString(),
 //                            email = mock["email"].toString()
 //                    )
 //                    Log.d("TAG", "information = $information")
-                            _informations.value = defaultData[0]
+                            _informations.value = defaultData
                             Log.d("TAG", "_informations.value = ${_informations.value}")
 
                         }
