@@ -1,5 +1,6 @@
 package com.wenbin.publisher.hmoepage
 
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -24,10 +25,25 @@ class HomePageViewModel : ViewModel() {
      * For catch data
      */
     private val citiesRef = db.collection("articles")
-    private val list = citiesRef.orderBy("data", Query.Direction.DESCENDING)
+    private val list = citiesRef.orderBy("createdTime", Query.Direction.DESCENDING)
     var defaultData = mutableListOf<Information>()
 
+    fun getData() {
+//        val newData = citiesRef.orderBy("createdTime", Query.Direction.DESCENDING)
+//        Log.d("TAG", "newData = ${newData.firestore}")
+        db.collection("articles")
+            .orderBy("createdTime", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d("newway", "${document.id} => ${document.data}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting documents: ", exception)
+            }
 
+    }
 
 //    private fun getData() {
 //        defaultData.run {
@@ -61,6 +77,7 @@ class HomePageViewModel : ViewModel() {
                         )
                             var mock = dc.document.data
                             Log.d("TAG", "mock = $mock")
+                            getData()
                         }
                         DocumentChange.Type.MODIFIED -> {
                             Log.d(
@@ -83,6 +100,7 @@ class HomePageViewModel : ViewModel() {
 //                    )
 //                    Log.d("TAG", "information = $information")
                             _informations.value = defaultData
+
                             Log.d("TAG", "_informations.value = ${_informations.value}")
 
                         }
@@ -93,6 +111,7 @@ class HomePageViewModel : ViewModel() {
                     }
                 }
             }
+
 
     /**
      * For navigate to Publisher Dialog

@@ -38,7 +38,7 @@ class HomePageFragment : Fragment() {
 
         viewModel.informations.observe(viewLifecycleOwner, Observer {
             Log.d("TAG", "infromation in view = ${it}")
-
+//            viewModel.getData()
         })
 
         return binding.root
