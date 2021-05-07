@@ -35,7 +35,7 @@ class HomePageViewModel : ViewModel() {
     var defaultData = mutableListOf<Information>()
     var mock = mutableListOf<Information>()
 
-    fun getData() {
+    private fun getData() {
         Log.d("newway", "inti mock = $mock")
 
         db.collection("articles")
