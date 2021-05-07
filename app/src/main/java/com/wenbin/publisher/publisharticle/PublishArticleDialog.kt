@@ -16,6 +16,12 @@ class PublishArticleDialog : DialogFragment() {
     val viewModel : PublishArticleViewModel  by lazy {
         ViewModelProvider(this).get(PublishArticleViewModel::class.java)
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.ThemeOverlay_AppCompat_Dialog)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,6 +33,10 @@ class PublishArticleDialog : DialogFragment() {
 
         binding.buttonPost.setOnClickListener {
             binding.textViewTitle.text = viewModel.title
+            binding.textViewCategory.text = viewModel.category
+            binding.textViewContent.text = viewModel.content
+
+            viewModel.addData()
         }
         return binding.root
     }
