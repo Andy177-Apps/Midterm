@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.wenbin.publisher.R
@@ -35,8 +36,11 @@ class PublishArticleDialog : DialogFragment() {
             binding.textViewTitle.text = viewModel.title
             binding.textViewCategory.text = viewModel.category
             binding.textViewContent.text = viewModel.content
-
-            viewModel.addData()
+            if (viewModel.title.isNullOrBlank()
+                || viewModel.category.isNullOrBlank()
+                || viewModel.content.isNullOrBlank()) {
+                Toast.makeText(context, "Your information is not complete",Toast.LENGTH_LONG).show()
+            }else {  viewModel.addData()}
         }
         return binding.root
     }
