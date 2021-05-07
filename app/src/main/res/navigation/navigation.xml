@@ -18,5 +18,6 @@
         tools:layout="@layout/dialog_publisharticle"
         />
     <action android:id="@+id/navigate_to_publishArticleDialog" app:destination="@id/publishArticleDialog"/>
+    <action android:id="@+id/navigate_to_homepagefragment" app:destination="@id/homePageFragment"/>
 
 </navigation>

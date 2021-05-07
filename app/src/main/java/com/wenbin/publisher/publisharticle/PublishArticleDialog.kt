@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.wenbin.publisher.NavigationDirections
 import com.wenbin.publisher.R
 import com.wenbin.publisher.databinding.DialogPublisharticleBinding
 import com.wenbin.publisher.databinding.FragmentHomepageBinding
@@ -40,7 +42,10 @@ class PublishArticleDialog : DialogFragment() {
                 || viewModel.category.isNullOrBlank()
                 || viewModel.content.isNullOrBlank()) {
                 Toast.makeText(context, "Your information is not complete",Toast.LENGTH_LONG).show()
-            }else {  viewModel.addData()}
+            }else {
+                viewModel.addData()
+                findNavController().navigate(NavigationDirections.navigateToHomepagefragment())
+            }
         }
         return binding.root
     }
