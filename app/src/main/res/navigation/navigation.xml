@@ -11,4 +11,12 @@
         android:label="HomePageFragment"
         tools:layout="@layout/fragment_homepage"
         />
+    <dialog
+        android:id="@+id/publishArticleDialog"
+        android:name="com.wenbin.publisher.publisharticle.PublishArticleDialog"
+        android:label="PublishArticleDialog"
+        tools:layout="@layout/dialog_publisharticle"
+        />
+    <action android:id="@+id/navigate_to_publishArticleDialog" app:destination="@id/publishArticleDialog"/>
+
 </navigation>
