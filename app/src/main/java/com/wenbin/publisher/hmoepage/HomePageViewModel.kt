@@ -27,6 +27,7 @@ class HomePageViewModel : ViewModel() {
     private val citiesRef = db.collection("articles")
     private val list = citiesRef.orderBy("createdTime", Query.Direction.DESCENDING)
     var defaultData = mutableListOf<Information>()
+    var mock = mutableListOf<Information>()
 
     fun getData() {
 //        val newData = citiesRef.orderBy("createdTime", Query.Direction.DESCENDING)
@@ -37,6 +38,12 @@ class HomePageViewModel : ViewModel() {
             .addOnSuccessListener { result ->
                 for (document in result) {
                     Log.d("newway", "${document.id} => ${document.data}")
+                    mock.add(Information(title = document.data["title"].toString(),
+                    category = document.data["category"].toString(),
+                    content = document.data["content"].toString(),
+                    createdTime = document.data["createdTime"].toString()))
+                    Log.d("newway", "mock = $mock") 
+                    break
                 }
             }
             .addOnFailureListener { exception ->
