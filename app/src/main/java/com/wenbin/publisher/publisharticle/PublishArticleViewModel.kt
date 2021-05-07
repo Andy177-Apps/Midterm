@@ -40,18 +40,5 @@ class PublishArticleViewModel : ViewModel() {
         update("content", FieldValue.arrayUnion(newContent))
         washingtonRef.
         update("timestamp", FieldValue.arrayUnion(timestamp))
-
-//        val data = hashMapOf(
-//            "author" to hashMapOf(
-//                "email" to "wayne@school.appworks.tw",
-//                "id" to "waynechen323",
-//                "name" to "AKA小安老師"
-//            ),
-//            "title" to newTitle
-//        )
-//        washingtonRef.set(data)
-
     }
-
-
 }
